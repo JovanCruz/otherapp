@@ -1,4 +1,25 @@
-<div>
-    <h1>{{title}}</h1>
+
+<div class="jumbotron text-center">
+    <h1>Welcome to the game page</h1>
     <p>These are the current favorite games</p>
+   
+    {{#each entries}}
+    <div class= 'entries'>
+        <p class="font-weight-bold">Game: {{title}}</p>
+        <p>Genre:{{genre}}</p>
+        <p>Range:{{range}}</p>
+        <p>Date:{{date}}</p>
+
+        <a href='/gameentries/edit/{{id}}' class="btn btn-dark">Edit</a>
+        
+        <form method="POST" action="/{{id}}?_method-Delete">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Delete" class="btn btn-danger btn">
+        </form>
+
+        
+    </div>
+    <br>
+    {{else}}
+    {{/each}}
 </div>

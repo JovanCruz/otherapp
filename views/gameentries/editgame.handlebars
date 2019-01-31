@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-7 mx-auto">
+        <div class="card card-body">
+                <form class="form-group" action="/addgame" method="POST">
+                <h3>Enter Your Game Here:</h3> 
+                <lable>Title of Game</lable>
+                <br>
+                <input type ="text" name ="title" value="{{entries.title}}" required>
+                <br>
+                <lable>Description of Game</lable>
+                <br>
+                <textarea name="genre" class="form-control" required  {{entries.genre}} ></textarea>
+                <br>
+                <label for="formControlRange">Pointless slider</label>
+                <input name="num" type="range" class="form-control-range" id="formControlRange">
+            
+                </input>
+                <br>
+                <button type="submit" class="btn btn-primary">Update Game</button>
+            </form>
+        </div>
+    </div>
+</div>

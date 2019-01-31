@@ -31,33 +31,53 @@ app.use(bodyParser.json());
 //route to index.html
 router.get('/',function(req, res){
     //res.sendFile(path.join(__dirname+'/index.html'));
-    var title = "Welcome to the GameApp Page";
+    //var title = "Welcome to the GameApp Page";
 
-    res.render('index',{
-        title:title
-    });
+    res.render('index'
+    );
 });
 
-app.get('/getdata', function(req,res){
+app.get('/', function(req,res){
     console.log("Request made from fetch");
-    Entry.find({}).then(function(entries){
-        res.send({
-            entries:entries
-        });
+    Entry.find({})
+    .then(function(entries){
+        res.render('index', {entries:entries});
     });
 });
 
-//route to entries.html
+//route to entries
+//router.get('/entries',function(req, res){
+//    res.render('entries');
+//});
+
+//route to login
+router.get('/login',function(req, res){
+    res.render('login');
+});
+
+//route to login
 router.get('/entries',function(req, res){
-    res.sendFile(path.join(__dirname+'/entries.html'));
+    res.render('gameentries/addgame');
+});
+
+
+
+//Delete game entry here
+app.post('/:id', function(req,res){
+    Entry.remove({_id:req.params.id}).then(function(){
+        //req.flash("game removed");
+        res.redirect('/');
+    });
 });
 
 //post for form on index.html
-app.post('/', function(req,res){
+app.post('/addgame', function(req,res){
     console.log(req.body);
     var newEntry = {
+
         title:req.body.title,
-        genre:req.body.genre
+        genre:req.body.genre,
+        num:req.body.num
     }
 
     new Entry(newEntry).save().then(function(entry){
@@ -68,7 +88,7 @@ app.post('/', function(req,res){
 //routs for paths
 app.use(express.static(__dirname + '/views'));
 app.use(express.static(__dirname + '/scripts'))
-//app.use('/', router);
+app.use('/', router);
 
 //starts the server 
 app.listen(port, function(){

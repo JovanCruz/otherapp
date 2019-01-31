@@ -10,6 +10,9 @@ var EntrySchema = new Schema({
         type:String,
         required:true
     },
+    range:{
+        type:Number
+    },
     date:{
         type:Date,
         default:Date.now
